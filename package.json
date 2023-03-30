@@ -1,0 +1,21 @@
+{
+  "name": "cookie-store-graphql",
+  "version": "0.0.1",
+  "description": "GraphQL server example for cookie store",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "compile": "tsc",
+    "start": "npm run compile && node ./dist/index.js"
+  },
+  "author": "Maria Kovsharova",
+  "license": "ISC",
+  "dependencies": {
+    "@apollo/server": "^4.5.0",
+    "graphql": "^16.6.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.15.11",
+    "typescript": "^5.0.2"
+  }
+}
