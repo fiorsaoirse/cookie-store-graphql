@@ -19,8 +19,16 @@ interface ICookieWithToppings extends ICookie {
     toppings: ITopping[];
 }
 
-type SortOrder = 'none' | 'price' | 'rating';
-type SortType = 'asc' | 'desc';
+enum SortType {
+    NONE = 'NONE',
+    PRICE = 'PRICE',
+    RATING = 'RATING'
+}
+
+enum SortOrder {
+    ASC = 'ASC',
+    DESC = 'DESC'
+}
 
 interface IFilter {
     term?: string;
@@ -54,15 +62,15 @@ const typeDefs = `#graphql
     to: Int
   }
 
-  enum SortType {
-    asc
-    desc
+  enum SortOrder {
+    ASC
+    DESC
   }
 
-  enum SortOrder {
-    none
-    price
-    rating
+  enum SortType {
+    NONE
+    PRICE
+    RATING
   }
 
   input Filter {
@@ -186,8 +194,8 @@ const resolvers = {
                 });
             }
 
-            if (sortOrder !== 'none') {
-                const comparator = compareFunction(sortType === 'desc');
+            if (sortType !== SortType.NONE) {
+                const comparator = compareFunction(sortOrder === SortOrder.DESC);
 
                 result = result.sort((a: ICookie, b: ICookie) => {
                     return comparator(a[sortOrder], b[sortOrder]);
