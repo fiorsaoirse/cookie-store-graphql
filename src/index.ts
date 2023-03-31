@@ -2,15 +2,15 @@ import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
 
 interface ITopping {
-    id: number;
+    id: string;
     name: string;
 }
 
 interface ICookie {
-    id: number;
+    id: string;
     title: string;
     description?: string;
-    toppingIds: number[];
+    toppingIds: string[];
     price: number;
     rating: number;
 }
@@ -32,7 +32,7 @@ enum SortOrder {
 
 interface IFilter {
     term?: string;
-    selectedToppings: number[];
+    selectedToppings: string[];
     sortType: SortType;
     sortOrder: SortOrder;
     priceRange?: {
@@ -75,7 +75,7 @@ const typeDefs = `#graphql
 
   input Filter {
     term: String
-    selectedToppings: [Int]
+    selectedToppings: [ID!]
     sortType: SortType
     sortOrder: SortOrder
     priceRange: PriceRange
@@ -89,68 +89,68 @@ const typeDefs = `#graphql
 
 const toppings: ITopping[] = [
     {
-        "id": 1,
+        "id": '1',
         "name": "Chocolate"
     },
     {
-        "id": 2,
+        "id": '2',
         "name": "Strawberry"
     },
     {
-        "id": 3,
+        "id": '3',
         "name": "Coconut"
     },
     {
-        "id": 4,
+        "id": '4',
         "name": "Marshmallows"
     },
     {
-        "id": 5,
+        "id": '5',
         "name": "Raspberry"
     }
 ];
 
 const cookies: ICookie[] = [
     {
-        "id": 1,
+        "id": '1',
         "title": "Chocolate cookie",
         "description": "Wonderful crispy cookie!",
-        "toppingIds": [1],
+        "toppingIds": ['1'],
         "price": 100,
         "rating": 4.5
     },
     {
-        "id": 2,
+        "id": '2',
         "title": "Nuts cookie",
         "toppingIds": [],
         "price": 120,
         "rating": 5
     },
     {
-        "id": 3,
+        "id": '3',
         "title": "Berries cookie",
-        "toppingIds": [2, 5],
+        "toppingIds": ['2', '5'],
         "price": 150,
         "rating": 5
     },
     {
-        "id": 4,
+        "id": '4',
         "title": "Coconut cookie",
         "description": "Tasty and sweet",
-        "toppingIds": [3],
+        "toppingIds": ['3'],
         "price": 100,
         "rating": 4.8
     },
     {
-        "id": 5,
+        "id": '5',
         "title": "Chocolate-marshmallow",
         "description": "Incredibly tasty!",
-        "toppingIds": [1, 4],
+        "toppingIds": ['1', '4'],
         "price": 160,
         "rating": 3.6
     },
     {
-        "id": 6,
+        "id": '6',
         "title": "MM's cookie",
         "toppingIds": [],
         "price": 90,
@@ -181,7 +181,7 @@ const resolvers = {
 
             if (selectedToppings?.length) {
                 result = result.filter((cookie: ICookie) => {
-                    return cookie.toppingIds?.some((tID: number) => selectedToppings.includes(tID)) ?? false;
+                    return cookie.toppingIds?.some((tID: string) => selectedToppings.includes(tID)) ?? false;
                 });
             }
 
