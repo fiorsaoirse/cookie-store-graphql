@@ -78,7 +78,7 @@ const typeDefs = `#graphql
     selectedToppings: [ID!]
     sortType: SortType
     sortOrder: SortOrder
-    priceRange: PriceRange
+    range: PriceRange
   }
 
   type Query {
