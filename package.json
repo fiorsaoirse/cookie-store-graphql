@@ -6,16 +6,21 @@
   "type": "module",
   "scripts": {
     "compile": "tsc",
-    "start": "npm run compile && node ./dist/index.js"
+    "start": "npm run compile && node ./dist/index.js",
+    "start:dev": "nodemon src/index.ts"
   },
   "author": "Maria Kovsharova",
   "license": "ISC",
   "dependencies": {
+    "@apollo/datasource-rest": "^6.0.0",
     "@apollo/server": "^4.5.0",
-    "graphql": "^16.6.0"
+    "graphql": "^16.6.0",
+    "graphql-tag": "^2.12.6"
   },
   "devDependencies": {
     "@types/node": "^18.15.11",
+    "nodemon": "^2.0.22",
+    "ts-node": "^10.9.1",
     "typescript": "^5.0.2"
   }
 }
